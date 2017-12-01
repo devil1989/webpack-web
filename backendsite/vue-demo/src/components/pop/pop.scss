@@ -1,0 +1,46 @@
+.ui-pop-content-wrapper li{
+	width: 100%;
+	overflow: hidden;
+}
+.ui-pop-content-wrapper .content-key-name{
+	height: 2rem;
+	line-height: 2rem;
+	margin-right: 5%;
+	float: left;
+	width: 35%;
+	text-align: right;
+
+}
+.ui-pop-content-wrapper .content-value{
+	height: 2rem;
+	line-height: 2rem;
+}
+.ui-pop-content-wrapper .content-value .content-value-name{
+	height: 1rem;
+	width:7rem;
+}
+.ui-pop-content-wrapper .content-func-type{
+	height: 1.2rem;
+	/*padding:0.2rem;*/
+}
+.content-radios{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+}
+.content-is-active{
+	width: 4rem;
+	flex-grow: 1;
+	display: flex;
+	align-items: center;
+}
+.content-is-active span{
+	width: 1rem;
+	flex-grow: 1;
+}
+.content-is-active input{
+	margin: 0;
+	margin-right: 0.2rem;
+}

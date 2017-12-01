@@ -1,0 +1,74 @@
+<div class="ui-pop-content-wrapper" v-if="data.content">
+	<ul v-if="!data.content.isTxt">
+
+		<!-- 不管是新增还是编辑，都是输入框 start -->
+		<li>
+			<span class="content-key-name">组织名称 :</span>
+
+			<div class="content-value">
+				<input class="content-value-name" type="text" @keyup="unitNameChange" v-model="data.content.contentInfo.rowData.nodeName" placeholder="请输入组织名称">
+			</div>
+		</li>
+		<!-- 不管是新增还是编辑，都是输入框 end -->
+
+		<!-- 不管是新增还是编辑，都是直接展示文本，不能编辑内容 start -->
+		<li>
+			<span class="content-key-name">父级组织名称 :</span>
+			<div class="content-value">
+				<span>{{data.content.contentInfo.rowData.parentName}}</span>
+			</div>
+		</li>
+		<li>
+			<span class="content-key-name">父级组织代码 :</span>
+			<div class="content-value">
+				<span>{{data.content.contentInfo.rowData.parentId}}</span>
+			</div>
+		</li>
+		<!-- 不管是新增还是编辑，都是直接展示文本，不能编辑内容 end -->
+		
+		<!-- 这里放拓展信息 start -->
+		<li v-for="item in data.content.contentInfo.metaData.extendAttrs" v-if="!item.needHide" >
+			<span class="content-key-name">{{item.name}} :</span>
+			
+			<!-- 纯文本 -->
+			<div class="content-value" v-if="item.type=='string' " >
+				<span>{{item.data[0].text}} </span>
+			</div>
+
+			<!-- 下拉菜单 -->
+			<div class="content-value" v-else-if="item.type=='dropdownList' " >
+				<select name="content-func-type"  class="content-func-type"  @change="selectedItem" :data-id="item.id">
+					<option style="display:none;">请您选择</option>
+					<option  v-for="unit in item.data" :data-val="unit.value" :data-type="data.content.contentInfo.rowData.type" :data-issub="data.content.contentInfo.rowData.isSub" :data-optionid="unit.id" v-show="!unit.isHide" :selected="unit.isSelected?'selected':'' " >{{unit.text}}</option>
+				</select>
+			</div>
+			
+			
+			<!-- 级联下拉菜单 -->
+			<!-- <div class="content-value">
+				<select name="content-func-type"  class="content-func-type">
+					<option  selected="selected">职能类型1</option>
+					<option >职能类型2</option>
+					<option >职能类型职能类型3</option>
+					<option >职能类型4</option>
+				</select>
+			</div> -->
+		</li>
+		<!-- 这里放拓展信息 end -->
+
+		
+		<li v-if="data.content.contentInfo.rowData.checkedBoxList">
+			<span class="content-key-name">组织状态 :</span>
+			<div class="content-value content-radios">
+				<!-- 例子：https://jsfiddle.net/rainwsy/1247s0ow/ -->
+				<!-- 本例查询formatPopState，里面有定义数据：v-model的值和:value的值对应，就能实现v-model的值和选择input的value动态绑定了 -->
+				<div v-for="checkItem in data.content.contentInfo.rowData.checkedBoxList" class="content-is-active">
+					<input type="radio" @click="unitStateChange" v-model="data.content.contentInfo.rowData.isActive" :value="checkItem.value">
+					<span>{{checkItem.text}}</span>
+				</div>
+			</div>
+		</li>
+
+	</ul>
+	<span  v-else >{{data.content.msg}}</span>
+</div>
